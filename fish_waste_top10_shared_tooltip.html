@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2000—2024年前10省份鱼类废弃物年度变化</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+<style>
+html,body{height:100%;margin:0;background:#fff;font-family:Arial,"Microsoft YaHei",sans-serif;color:#222;}
+.wrap{height:100%;display:flex;flex-direction:column;}
+.header{padding:16px 20px 4px;}
+h1{margin:0;font-size:22px;font-weight:600;}
+.note{margin:6px 0 0;color:#666;font-size:13px;}
+#chart{flex:1;min-height:520px;width:100%;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>2000—2024年长期平均值前10省份鱼类废弃物年度变化</h1>
+    <p class="note">前10省份按2000—2024年鱼类废弃物多年平均值筛选；将鼠标移动到任一年份，可同时查看10个省份当年数值。单位：万吨。</p>
+  </div>
+  <div id="chart" role="img" aria-label="2000至2024年十个省份鱼类废弃物年度折线图"></div>
+</div>
+<script>
+const chart = echarts.init(document.getElementById('chart'));
+const years = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"];
+const series = [{"name": "广东", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [161.594, 160.27, 156.672, 156.034, 155.036, 156.115, 157.181, 156.462, 158.997, 162.173, 165.404, 183.809, 193.882, 207.16, 219.212, 227.785, 232.721, 224.61, 234.568, 251.97, 243.449, 253.644, 261.148, 266.83, 273.601]}, {"name": "湖北", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [96.061, 96.116, 96.833, 97.819, 99.197, 102.989, 105.122, 104.279, 109.024, 109.986, 112.015, 108.542, 114.407, 115.619, 120.216, 125.641, 128.417, 119.567, 107.183, 103.496, 118.992, 114.502, 118.272, 111.637, 114.024]}, {"name": "江苏", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [108.786, 104.829, 101.401, 99.303, 98.073, 99.471, 99.595, 97.505, 97.894, 98.393, 102.604, 96.617, 97.814, 101.529, 103.88, 126.246, 107.227, 103.804, 103.572, 98.054, 101.454, 101.478, 106.964, 109.627, 112.243]}, {"name": "浙江", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [52.893, 53.301, 52.705, 51.007, 52.861, 57.321, 61.192, 59.813, 64.045, 66.156, 70.385, 92.704, 96.099, 100.314, 101.935, 114.361, 125.81, 117.468, 134.245, 123.674, 132.637, 137.432, 143.473, 155.96, 150.33]}, {"name": "山东", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [107.012, 100.017, 96.854, 98.871, 96.44, 102.227, 108.376, 108.585, 113.538, 112.372, 120.977, 117.344, 112.295, 127.661, 142.578, 136.947, 75.822, 52.769, 52.268, 49.588, 47.045, 50.172, 55.228, 57.19, 61.168]}, {"name": "湖南", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [79.482, 79.851, 79.96, 80.493, 80.459, 81.595, 82.045, 82.256, 81.598, 82.51, 86.63, 86.052, 95.991, 102.24, 108.984, 112.981, 112.741, 100.087, 98.481, 97.164, 97.347, 94.283, 89.936, 87.917, 89.08]}, {"name": "福建", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [64.318, 64.397, 64.73, 65.006, 66.671, 69.485, 69.903, 71.753, 74.106, 76.354, 76.952, 82.971, 81.985, 87.706, 92.284, 95.107, 98.491, 90.828, 82.619, 83.603, 93.699, 96.581, 98.425, 96.045, 99.402]}, {"name": "江西", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [68.762, 69.618, 70.277, 69.428, 69.935, 70.433, 70.227, 72.716, 72.646, 73.484, 76.305, 76.916, 81.391, 82.422, 87.016, 89.741, 92.768, 82.782, 84.691, 85.745, 87.561, 90.668, 95.487, 99.205, 104.406]}, {"name": "安徽", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [67.453, 66.297, 65.455, 66.883, 67.478, 67.656, 67.058, 66.43, 67.077, 67.573, 70.102, 72.662, 75.276, 77.097, 79.707, 81.492, 82.423, 72.488, 74.586, 73.703, 73.631, 72.669, 70.932, 71.052, 71.018]}, {"name": "广西", "type": "line", "smooth": false, "showSymbol": true, "symbolSize": 6, "connectNulls": false, "emphasis": {"focus": "series"}, "data": [50.281, 50.17, 50.634, 51.784, 50.925, 51.837, 52.039, 52.206, 53.283, 57.74, 58.111, 61.239, 61.622, 66.509, 70.259, 74.853, 79.076, 60.817, 63.833, 65.613, 67.78, 69.002, 71.023, 73.015, 75.077]}];
+chart.setOption({
+  animationDuration: 600,
+  color: ['#2f5597','#70ad47','#ed7d31','#5b9bd5','#8064a2','#c0504d','#9bbb59','#4bacc6','#f79646','#7f7f7f'],
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {type: 'line', lineStyle: {color: '#888', width: 1, type: 'dashed'}},
+    confine: true,
+    order: 'valueDesc',
+    backgroundColor: 'rgba(255,255,255,0.96)',
+    borderColor: '#ccc',
+    borderWidth: 1,
+    textStyle: {color:'#222'},
+    formatter: function(params) {
+      const rows = params.map(p => `<div style="display:flex;justify-content:space-between;gap:22px;line-height:1.65"><span>${p.marker}${p.seriesName}</span><strong>${Number(p.value).toFixed(2)}</strong></div>`).join('');
+      return `<div style="font-weight:600;margin-bottom:4px">${params[0].axisValue}年</div>${rows}<div style="margin-top:5px;color:#666">单位：万吨</div>`;
+    }
+  },
+  legend: {type:'scroll', top: 4, left: 20, right: 20, selectedMode:true},
+  toolbox: {right: 18, top: 2, feature: {saveAsImage: {title:'保存图片', pixelRatio:2}, restore: {title:'恢复'}}},
+  grid: {left: 72, right: 36, top: 70, bottom: 86, containLabel: false},
+  xAxis: {
+    type:'category',
+    boundaryGap:false,
+    data:years,
+    name:'年份',
+    nameLocation:'middle',
+    nameGap:42,
+    axisLabel: {interval:1, rotate:45},
+    axisTick: {alignWithLabel:true}
+  },
+  yAxis: {
+    type:'value',
+    min:0,
+    name:'鱼类废弃物估算量（万吨）',
+    nameLocation:'middle',
+    nameGap:55,
+    splitLine: {lineStyle: {color:'#e8e8e8'}}
+  },
+  dataZoom: [
+    {type:'inside', start:0, end:100},
+    {type:'slider', start:0, end:100, height:22, bottom:22}
+  ],
+  series:series
+});
+window.addEventListener('resize', () => chart.resize());
+</script>
+</body>
+</html>
