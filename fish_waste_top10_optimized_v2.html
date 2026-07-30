@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>2000—2024年前10省份鱼类废弃物年度变化图</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.6.0/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --story-blue:rgb(0,76,115);
+    --white:#ffffff;
+    --ink:#344054;
+    --muted:#667085;
+    --axis:#667085;
+    --border:rgba(255,255,255,.20);
+  }
+  *{box-sizing:border-box}
+  html,body{
+    width:100%;height:100%;margin:0;overflow:hidden;
+    font-family:Arial,"Microsoft YaHei",sans-serif;
+    background:var(--story-blue);
+  }
+  .page{
+    width:100%;height:100%;min-height:560px;
+    display:grid;grid-template-rows:auto minmax(0,1fr);
+    background:var(--story-blue);color:#fff;
+  }
+  .header{
+    padding:16px 24px 13px;
+    border-bottom:1px solid var(--border);
+  }
+  h1{
+    margin:0;text-align:left;color:#fff;
+    font-size:clamp(18px,2vw,28px);line-height:1.25;font-weight:700;
+  }
+  .main{min-height:0;padding:14px 16px 16px}
+  .chart-card{
+    width:100%;height:100%;min-height:0;
+    overflow:hidden;background:#fff;border-radius:14px;
+    box-shadow:0 9px 28px rgba(0,0,0,.18);
+  }
+  #chart{width:100%;height:100%;min-height:500px}
+  @media(max-width:760px){
+    .page{min-height:660px}
+    .header{padding:13px 16px 11px}
+    .main{padding:10px}
+    .chart-card{border-radius:10px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <h1>2000—2024年前10省份鱼类废弃物年度变化图</h1>
+  </header>
+  <main class="main">
+    <section class="chart-card">
+      <div id="chart" role="img" aria-label="2000至2024年前十省份鱼类废弃物年度变化图"></div>
+    </section>
+  </main>
+</div>
+<script>
+const years=["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"];
+
+const rawSeries=[
+  {name:"广东",data:[161.594,160.27,156.672,156.034,155.036,156.115,157.181,156.462,158.997,162.173,165.404,183.809,193.882,207.16,219.212,227.785,232.721,224.61,234.568,251.97,243.449,253.644,261.148,266.83,273.601]},
+  {name:"湖北",data:[96.061,96.116,96.833,97.819,99.197,102.989,105.122,104.279,109.024,109.986,112.015,108.542,114.407,115.619,120.216,125.641,128.417,119.567,107.183,103.496,118.992,114.502,118.272,111.637,114.024]},
+  {name:"江苏",data:[108.786,104.829,101.401,99.303,98.073,99.471,99.595,97.505,97.894,98.393,102.604,96.617,97.814,101.529,103.88,126.246,107.227,103.804,103.572,98.054,101.454,101.478,106.964,109.627,112.243]},
+  {name:"浙江",data:[52.893,53.301,52.705,51.007,52.861,57.321,61.192,59.813,64.045,66.156,70.385,92.704,96.099,100.314,101.935,114.361,125.81,117.468,134.245,123.674,132.637,137.432,143.473,155.96,150.33]},
+  {name:"山东",data:[107.012,100.017,96.854,98.871,96.44,102.227,108.376,108.585,113.538,112.372,120.977,117.344,112.295,127.661,142.578,136.947,75.822,52.769,52.268,49.588,47.045,50.172,55.228,57.19,61.168]},
+  {name:"湖南",data:[79.482,79.851,79.96,80.493,80.459,81.595,82.045,82.256,81.598,82.51,86.63,86.052,95.991,102.24,108.984,112.981,112.741,100.087,98.481,97.164,97.347,94.283,89.936,87.917,89.08]},
+  {name:"福建",data:[64.318,64.397,64.73,65.006,66.671,69.485,69.903,71.753,74.106,76.354,76.952,82.971,81.985,87.706,92.284,95.107,98.491,90.828,82.619,83.603,93.699,96.581,98.425,96.045,99.402]},
+  {name:"江西",data:[68.762,69.618,70.277,69.428,69.935,70.433,70.227,72.716,72.646,73.484,76.305,76.916,81.391,82.422,87.016,89.741,92.768,82.782,84.691,85.745,87.561,90.668,95.487,99.205,104.406]},
+  {name:"安徽",data:[67.453,66.297,65.455,66.883,67.478,67.656,67.058,66.43,67.077,67.573,70.102,72.662,75.276,77.097,79.707,81.492,82.423,72.488,74.586,73.703,73.631,72.669,70.932,71.052,71.018]},
+  {name:"广西",data:[50.281,50.17,50.634,51.784,50.925,51.837,52.039,52.206,53.283,57.74,58.111,61.239,61.622,66.509,70.259,74.853,79.076,60.817,63.833,65.613,67.78,69.002,71.023,73.015,75.077]}
+];
+
+const palette=['#2F6BDE','#21B07A','#F5B700','#40B7D4','#8B63D7','#E45C43','#56B4E9','#F28E2B','#2BA39A','#7A7A7A'];
+const chart=echarts.init(document.getElementById('chart'),null,{renderer:'canvas'});
+
+const series=rawSeries.map((s,i)=>({
+  name:s.name,
+  type:'line',
+  data:s.data,
+  smooth:false,
+  connectNulls:false,
+  showSymbol:true,
+  symbol:'circle',
+  symbolSize:i===0?7:6,
+  lineStyle:{width:i===0?3.2:2.1,color:palette[i]},
+  itemStyle:{color:'#fff',borderColor:palette[i],borderWidth:2},
+  emphasis:{
+    focus:'series',
+    scale:1.25,
+    lineStyle:{width:i===0?4:3},
+    itemStyle:{shadowBlur:9,shadowColor:'rgba(0,0,0,.22)'}
+  }
+}));
+
+chart.setOption({
+  backgroundColor:'#ffffff',
+  animationDuration:500,
+  color:palette,
+  tooltip:{
+    trigger:'axis',
+    triggerOn:'mousemove|click',
+    confine:true,
+    order:'valueDesc',
+    axisPointer:{type:'line',snap:true,lineStyle:{color:'#667085',width:1.2,type:'dashed'}},
+    backgroundColor:'rgba(0,76,115,.96)',
+    borderColor:'rgba(255,255,255,.35)',
+    borderWidth:1,
+    padding:[10,12],
+    textStyle:{color:'#fff',fontSize:13},
+    extraCssText:'border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.22);',
+    formatter(params){
+      const rows=params.map(p=>`<div style="display:flex;justify-content:space-between;gap:24px;line-height:1.65"><span>${p.marker}${p.seriesName}</span><b>${Number(p.value).toFixed(2)}</b></div>`).join('');
+      return `<div style="font-size:14px;font-weight:700;margin-bottom:5px">${params[0].axisValue}年</div>${rows}<div style="margin-top:6px;color:rgba(255,255,255,.76)">单位：万吨</div>`;
+    }
+  },
+  legend:{
+    type:'scroll',
+    top:20,left:'center',width:'92%',
+    itemWidth:24,itemHeight:10,itemGap:18,
+    textStyle:{color:'#344054',fontSize:12},
+    pageTextStyle:{color:'#344054'},
+    pageIconColor:'#004c73',
+    pageIconInactiveColor:'#c6ced8',
+    selectedMode:true
+  },
+  toolbox:{
+    right:24,top:8,
+    itemSize:15,
+    iconStyle:{borderColor:'#667085'},
+    feature:{
+      restore:{title:'恢复'},
+      saveAsImage:{title:'保存图片',pixelRatio:2,name:'前10省份鱼类废弃物年度变化'}
+    }
+  },
+  grid:{left:78,right:38,top:68,bottom:68,containLabel:false},
+  xAxis:{
+    type:'category',boundaryGap:false,data:years,
+    name:'年份',nameLocation:'middle',nameGap:38,
+    nameTextStyle:{color:'#475467',fontSize:13},
+    axisLine:{show:true,onZero:false,lineStyle:{color:'#667085',width:1.3}},
+    axisTick:{show:true,alignWithLabel:true,lineStyle:{color:'#667085',width:1.2}},
+    axisLabel:{color:'#475467',fontSize:11,interval:1,margin:11},
+    splitLine:{show:false}
+  },
+  yAxis:{
+    type:'value',min:0,max:300,interval:50,
+    name:'鱼类废弃物（万吨）',nameLocation:'middle',nameGap:56,
+    nameTextStyle:{color:'#475467',fontSize:13},
+    axisLine:{show:true,onZero:false,lineStyle:{color:'#667085',width:1.3}},
+    axisTick:{show:true,lineStyle:{color:'#667085',width:1.2}},
+    axisLabel:{color:'#475467',fontSize:11,margin:10},
+    splitLine:{show:false}
+  },
+  series
+});
+
+function resizeChart(){chart.resize()}
+window.addEventListener('resize',resizeChart,{passive:true});
+if('ResizeObserver' in window){new ResizeObserver(resizeChart).observe(document.getElementById('chart'))}
+requestAnimationFrame(resizeChart);
+</script>
+</body>
+</html>
